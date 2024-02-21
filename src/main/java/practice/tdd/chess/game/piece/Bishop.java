@@ -36,7 +36,7 @@ public class Bishop extends Piece{
         int finishRow = Math.max(getCoordinate().getRow(), destination.getRow());
         int startCol = Math.min(getCoordinate().getCol(), destination.getCol());
         int finishCol = Math.min(getCoordinate().getCol(), destination.getCol());
-        for (int i = startRow + 1, j = startCol + 1; i < finishRow; i++, j++) {
+        for (int i = startRow + 1, j = startCol + 1; i < finishRow && i != 8 && j != 8; i++, j++) {
             if (board.getColorOnLocation(new Coordinate(i, j)) != Color.EMPTY) {
                 return true;
             }

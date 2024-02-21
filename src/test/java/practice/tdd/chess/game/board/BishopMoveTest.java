@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import practice.tdd.chess.game.piece.Bishop;
 import practice.tdd.chess.game.piece.Color;
-import practice.tdd.chess.game.piece.Knight;
 import practice.tdd.chess.game.piece.Piece;
 
 import static org.assertj.core.api.Assertions.assertThat;
