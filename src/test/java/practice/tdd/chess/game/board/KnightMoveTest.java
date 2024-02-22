@@ -1,6 +1,5 @@
 package practice.tdd.chess.game.board;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,7 +7,6 @@ import practice.tdd.chess.game.piece.Color;
 import practice.tdd.chess.game.piece.Knight;
 import practice.tdd.chess.game.piece.Piece;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class KnightMoveTest {
