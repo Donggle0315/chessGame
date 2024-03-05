@@ -3,9 +3,12 @@ package practice.tdd.chess.game.board;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import practice.tdd.chess.game.piece.Color;
-import practice.tdd.chess.game.piece.Knight;
-import practice.tdd.chess.game.piece.Piece;
+import practice.tdd.chess.game.domain.board.Board;
+import practice.tdd.chess.game.service.BoardBuilder;
+import practice.tdd.chess.game.domain.board.Coordinate;
+import practice.tdd.chess.game.domain.piece.Color;
+import practice.tdd.chess.game.domain.piece.Knight;
+import practice.tdd.chess.game.domain.piece.Piece;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

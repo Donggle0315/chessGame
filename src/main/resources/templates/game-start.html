@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 시작</title>
+</head>
+<body>
+<form action="/game/start" method="post">
+    <label for="user1_id">유저 1 아이디:</label>
+    <input type="text" id="user1_id" name="user1_id" required><br>
+    <label for="user1_name">유저 1 이름:</label>
+    <input type="text" id="user1_name" name="user1_name" required><br><br>
+
+    <label for="user2_id">유저 2 아이디:</label>
+    <input type="text" id="user2_id" name="user2_id" required><br>
+    <label for="user2_name">유저 2 이름:</label>
+    <input type="text" id="user2_name" name="user2_name" required><br><br>
+
+    <input type="submit" value="게임 시작">
+</form>
+</body>
+</html>

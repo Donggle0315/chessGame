@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chessboard</title>
+    <style>
+        .square {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            border: 1px solid black;
+            box-sizing: border-box;
+            cursor: pointer; /* add cursor pointer for better UX */
+        }
+
+        .odd-col {
+            background-color: #eaeaea;
+        }
+
+        .even-col {
+            background-color: #f0f0f0;
+        }
+
+        .black {
+            background-color: #b58863;
+        }
+
+        .white {
+            background-color: #f0d9b5;
+        }
+
+        .empty {
+            /* Define style for empty square if needed */
+        }
+    </style>
+</head>
+<body>
+<div id="chessboard">
+    <div th:each="row, rowStat : ${gameDTO.board}">
+        <div th:each="square, colStat : ${row}" th:class="${colStat.odd}? 'odd-col square' : 'even-col square'" th:onclick="'handleClick(' + ${rowStat.index} + ', ' + ${colStat.index} + ')'" th:data-row="${rowStat.index}" th:data-col="${colStat.index}">
+            <span th:if="${square != null}" th:attr="class=${square.color.toString().toLowerCase()} + ' ' + ${square.name.toLowerCase()}" th:text="${square.name}" th:style="'color:' + (${square.color} == 'BLACK' ? 'black' : 'white')"></span>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    function handleClick(row, col) {
+        console.log("Clicked on row: " + row + ", col: " + col);
+        // 여기에 클릭한 칸에 대한 처리를 추가할 수 있습니다.
+    }
+</script>
+</body>
+</html>

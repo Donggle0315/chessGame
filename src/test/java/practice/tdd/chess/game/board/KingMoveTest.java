@@ -1,13 +1,15 @@
 package practice.tdd.chess.game.board;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import practice.tdd.chess.game.piece.Color;
-import practice.tdd.chess.game.piece.King;
-import practice.tdd.chess.game.piece.Piece;
-import practice.tdd.chess.game.piece.Rook;
+import practice.tdd.chess.game.domain.board.Board;
+import practice.tdd.chess.game.service.BoardBuilder;
+import practice.tdd.chess.game.domain.board.Coordinate;
+import practice.tdd.chess.game.domain.piece.Color;
+import practice.tdd.chess.game.domain.piece.King;
+import practice.tdd.chess.game.domain.piece.Piece;
+import practice.tdd.chess.game.domain.piece.Rook;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
