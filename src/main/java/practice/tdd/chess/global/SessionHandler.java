@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import practice.tdd.chess.exceptions.InvalidSessionException;
 import practice.tdd.chess.user.domain.JoinUser;
-import practice.tdd.chess.user.domain.User;
 import practice.tdd.chess.user.repository.UserRepository;
-
-import java.util.Optional;
 
 @Service
 public class SessionHandler {

@@ -14,6 +14,9 @@ public class Queen extends Piece{
         if (checkOutOfBoundary(destination)) {
             return false;
         }
+        if (destination.equals(getCoordinate())) {
+            return false;
+        }
         if (verifyAnyPiecesOnVerticalHorizontalWay(destination)) {
             return false;
         }
@@ -56,15 +59,17 @@ public class Queen extends Piece{
     }
 
     private boolean verifyAnyPieceOnDiagonalWay(Coordinate destination) {
-        int startRow = Math.min(getCoordinate().getRow(), destination.getRow());
-        int finishRow = Math.max(getCoordinate().getRow(), destination.getRow());
-        int startCol = Math.min(getCoordinate().getCol(), destination.getCol());
-        int finishCol = Math.min(getCoordinate().getCol(), destination.getCol());
-        for (int i = startRow + 1, j = startCol + 1; i < finishRow && i != 8 && j != 8; i++, j++) {
-            if (board.getColorOnLocation(new Coordinate(i, j)) != Color.EMPTY) {
+        int deltaRow = getCoordinate().getRow() < destination.getRow() ? 1 : -1;
+        int deltaCol = getCoordinate().getCol() < destination.getCol() ? 1 : -1;
+        if (Math.abs(getCoordinate().getRow() - destination.getRow()) != Math.abs(getCoordinate().getCol() - destination.getCol())) {
+            return false;
+        }
+        for (int i = getCoordinate().getRow() + deltaRow, j = getCoordinate().getCol() + deltaCol; i != destination.getRow() && j != destination.getCol(); i += deltaRow, j += deltaCol) {
+            if (getBoard().getColorOnLocation(new Coordinate(i, j)) != Color.EMPTY) {
                 return true;
             }
         }
+
         return false;
     }
 

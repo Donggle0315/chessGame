@@ -11,36 +11,59 @@ public class King extends Piece{
 
     @Override
     public boolean canMove(Coordinate destination) {
-        try {
-            this.inBoundary(destination);
-        } catch (OutOfBoardRangeException e) {
+        if (checkOutOfBoundary(destination)) {
             return false;
         }
 
-        if (board.getColorOnLocation(destination) == getColor()) {
+        if (verifyMovingToAlliance(destination)) {
             return false;
         }
 
-        for (Piece[] pieces : board.getBoard()) {
-            for (Piece piece : pieces) {
-                if (piece.getColor() == getEnemyColor() &&
-                        !(piece instanceof King) &&
-                        piece.canMove(destination)) {
-                    return false;
-                }
-            }
+        if (verifyKingChecked(destination)) {
+            return false;
         }
 
-        if ((Math.abs((getCoordinate().getRow() - destination.getRow()) + (getCoordinate().getCol() - destination.getCol()))) == 1) {
+        if (verifyMovingToNormalPosition(destination)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean verifyMovingToNormalPosition(Coordinate destination) {
+        if ((Math.abs(getCoordinate().getRow() - destination.getRow()) + Math.abs((getCoordinate().getCol() - destination.getCol()))) == 1) {
             return true;
         }
 
         if ((Math.abs((getCoordinate().getRow() - destination.getRow()) * (getCoordinate().getCol() - destination.getCol()))) == 1) {
             return true;
         }
+        return false;
+    }
 
+    private boolean verifyKingChecked(Coordinate destination) {
+        for (Piece[] pieces : board.getBoard()) {
+            for (Piece piece : pieces) {
+                if (piece.getColor() == getEnemyColor() &&
+                        !(piece instanceof King) &&
+                        piece.canMove(destination)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    private boolean verifyMovingToAlliance(Coordinate destination) {
+        return board.getColorOnLocation(destination) == getColor();
+    }
 
+    private boolean checkOutOfBoundary(Coordinate destination) {
+        try {
+            this.inBoundary(destination);
+        } catch (OutOfBoardRangeException e) {
+            return true;
+        }
         return false;
     }
 }

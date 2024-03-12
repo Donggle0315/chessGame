@@ -6,10 +6,14 @@ import practice.tdd.chess.game.domain.board.Coordinate;
 import practice.tdd.chess.game.domain.player.Turn;
 import practice.tdd.chess.user.domain.User;
 
+import java.util.List;
+
 public interface GameService {
     Game initializeGame(User player1, User player2);
 
     void matchTurn(Turn requestTurn, Turn gameTurn) throws InvalidUserRequestException;
 
     void movePiece(Game game, Coordinate start, Coordinate finish) throws InvalidUserRequestException;
+
+    List<Coordinate> getMovableCoordinates(Game game, Coordinate coordinate);
 }

@@ -13,6 +13,9 @@ import practice.tdd.chess.game.domain.player.Player;
 import practice.tdd.chess.game.domain.player.Turn;
 import practice.tdd.chess.user.domain.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class GameServiceImpl implements GameService{
     private final BoardBuilder builder;
@@ -57,5 +60,23 @@ public class GameServiceImpl implements GameService{
         movedPiece.setCoordinate(new Coordinate(finish.getRow(), finish.getCol()));
         game.getBoard().setPieceOnBoard(finish.getRow(), finish.getCol(), movedPiece);
         game.getBoard().setPieceOnBoard(start.getRow(), start.getCol(), new EmptyPiece(start.getRow(), start.getCol(), game.getBoard()));
+    }
+
+    @Override
+    public List<Coordinate> getMovableCoordinates(Game game, Coordinate start) {
+        Piece piece = game.getBoard().getPiece(start.getRow(), start.getCol());
+
+        List<Coordinate> movable = new ArrayList<>();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Coordinate coordinate = new Coordinate(i, j);
+                if (piece.canMove(coordinate)) {
+                    movable.add(coordinate);
+                }
+            }
+        }
+
+        return movable;
     }
 }

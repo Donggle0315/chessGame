@@ -48,8 +48,14 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String loginPage() {
-        return "user/user-login";
+    public String loginPage(HttpServletRequest request) {
+        try {
+            sessionHandler.validateSession(request.getSession());
+            return "redirect:/";
+        } catch (InvalidSessionException e) {
+            return "user/user-login";
+        }
+
     }
 
     @PostMapping("/login")

@@ -1,4 +1,4 @@
-package practice.tdd.chess.user.domain;
+package practice.tdd.chess.game.domain;
 
 import lombok.Getter;
 import lombok.Setter;

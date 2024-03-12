@@ -1,10 +1,14 @@
 package practice.tdd.chess.game.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import practice.tdd.chess.exceptions.InvalidUserRequestException;
 import practice.tdd.chess.game.domain.board.Coordinate;
+import practice.tdd.chess.game.domain.board.CoordinateDTO;
 import practice.tdd.chess.game.domain.game.Game;
 import practice.tdd.chess.game.domain.game.GameDTO;
 import practice.tdd.chess.game.domain.piece.Color;
@@ -67,6 +71,18 @@ public class GameController {
         }
 
         return "chess-board";
+    }
+
+    @PostMapping("/movable-position")
+    public ResponseEntity<?> movablePosition(@RequestParam Long gameId,
+                                             @RequestBody CoordinateDTO coordinateDTO,
+                                              HttpServletRequest request) {
+        System.out.println("coordinateDTO = " + coordinateDTO);
+        Game game = gameRepository.findById(gameId).get();
+
+        Coordinate coordinate = new Coordinate(coordinateDTO.getRow(), coordinateDTO.getCol());
+        gameService.getMovableCoordinates(game, coordinate);
+        return null;
     }
 
     @PostMapping("/request")

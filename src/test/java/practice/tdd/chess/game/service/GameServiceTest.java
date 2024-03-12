@@ -1,5 +1,6 @@
 package practice.tdd.chess.game.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,10 @@ import practice.tdd.chess.game.domain.piece.EmptyPiece;
 import practice.tdd.chess.game.domain.piece.Pawn;
 import practice.tdd.chess.game.domain.player.Turn;
 import practice.tdd.chess.user.domain.User;
-import practice.tdd.chess.user.domain.UserRequest;
+import practice.tdd.chess.game.domain.UserRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -147,5 +151,232 @@ public class GameServiceTest {
         assertThat(game.getBoard().getPiece(6,0)).isInstanceOf(EmptyPiece.class);
         assertThat(game.getBoard().getPiece(5, 0)).isInstanceOf(Pawn.class);
     }
-    
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - BLACK PAWN")
+    public void userSelectCoordinateMovableBlackPawn() {
+        Coordinate coordinate = new Coordinate(1, 0);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(2, 0));
+        expect.add(new Coordinate(3, 0));
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - BLACK ROOK")
+    public void userSelectCoordinateMovableBlackRook() {
+        Coordinate coordinate = new Coordinate(0, 0);
+        deletePieceOnBoard(1,0);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(1, 0));
+        expect.add(new Coordinate(2, 0));
+        expect.add(new Coordinate(3, 0));
+        expect.add(new Coordinate(4, 0));
+        expect.add(new Coordinate(5, 0));
+        expect.add(new Coordinate(6, 0));
+
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - BLACK KNIGHT")
+    public void userSelectCoordinateMovableBlackKnight() {
+        Coordinate coordinate = new Coordinate(0, 1);
+        deletePieceOnBoard(1,3);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(1, 3));
+        expect.add(new Coordinate(2, 0));
+        expect.add(new Coordinate(2, 2));
+
+
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - BLACK BISHOP")
+    public void userSelectCoordinateMovableBlackBishop() {
+        Coordinate coordinate = new Coordinate(0, 2);
+        deletePieceOnBoard(1,1);
+        deletePieceOnBoard(1,3);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(1, 1));
+        expect.add(new Coordinate(1, 3));
+        expect.add(new Coordinate(2, 0));
+        expect.add(new Coordinate(2, 4));
+        expect.add(new Coordinate(3, 5));
+        expect.add(new Coordinate(4, 6));
+        expect.add(new Coordinate(5, 7));
+
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - BLACK KING")
+    public void userSelectCoordinateMovableBlackKing() {
+        Coordinate coordinate = new Coordinate(0, 3);
+        deletePieceOnBoard(0,2);
+        deletePieceOnBoard(0,4);
+        deletePieceOnBoard(1,2);
+        deletePieceOnBoard(1,3);
+        deletePieceOnBoard(1,4);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(0, 2));
+        expect.add(new Coordinate(0, 4));
+        expect.add(new Coordinate(1, 2));
+        expect.add(new Coordinate(1, 3));
+        expect.add(new Coordinate(1, 4));
+
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - BLACK QUEEN")
+    public void userSelectCoordinateMovableBlackQueen() {
+        Coordinate coordinate = new Coordinate(0, 4);
+
+        deletePieceOnBoard(0,3);
+        deletePieceOnBoard(0,5);
+        deletePieceOnBoard(1,3);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(0, 3));
+        expect.add(new Coordinate(0, 5));
+        expect.add(new Coordinate(1, 3));
+        expect.add(new Coordinate(2, 2));
+        expect.add(new Coordinate(3, 1));
+        expect.add(new Coordinate(4, 0));
+
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - WHITE PAWN")
+    public void userSelectCoordinateMovableWhitePawn() {
+        Coordinate coordinate = new Coordinate(6, 0);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(4, 0));
+        expect.add(new Coordinate(5, 0));
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - WHITE ROOK")
+    public void userSelectCoordinateMovableWhiteRook() {
+        Coordinate coordinate = new Coordinate(7, 0);
+        deletePieceOnBoard(6,0);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(1, 0));
+        expect.add(new Coordinate(2, 0));
+        expect.add(new Coordinate(3, 0));
+        expect.add(new Coordinate(4, 0));
+        expect.add(new Coordinate(5, 0));
+        expect.add(new Coordinate(6, 0));
+
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - WHITE KNIGHT")
+    public void userSelectCoordinateMovableWhiteKnight() {
+        Coordinate coordinate = new Coordinate(7, 1);
+        deletePieceOnBoard(6,3);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(5, 0));
+        expect.add(new Coordinate(5, 2));
+        expect.add(new Coordinate(6, 3));
+
+
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - WHITE BISHOP")
+    public void userSelectCoordinateMovableWhiteBishop() {
+        Coordinate coordinate = new Coordinate(7, 2);
+        deletePieceOnBoard(6,1);
+        deletePieceOnBoard(6,3);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(2, 7));
+        expect.add(new Coordinate(3, 6));
+        expect.add(new Coordinate(4, 5));
+        expect.add(new Coordinate(5, 0));
+        expect.add(new Coordinate(5, 4));
+        expect.add(new Coordinate(6, 1));
+        expect.add(new Coordinate(6, 3));
+
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - WHITE KING")
+    public void userSelectCoordinateMovableWhiteKing() {
+        Coordinate coordinate = new Coordinate(7, 3);
+        deletePieceOnBoard(7,2);
+        deletePieceOnBoard(7,4);
+        deletePieceOnBoard(6,2);
+        deletePieceOnBoard(6,3);
+        deletePieceOnBoard(6,4);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(6, 2));
+        expect.add(new Coordinate(6, 3));
+        expect.add(new Coordinate(6, 4));
+        expect.add(new Coordinate(7, 2));
+        expect.add(new Coordinate(7, 4));
+
+        assertEquals(expect, movableCoordinates);
+    }
+
+    @Test
+    @DisplayName("유저가 선택한 좌표에 말이 움직일 수 있는 경우 - WHITE QUEEN")
+    public void userSelectCoordinateMovableWhiteQueen() {
+        Coordinate coordinate = new Coordinate(7, 4);
+
+        deletePieceOnBoard(7,3);
+        deletePieceOnBoard(7,5);
+        deletePieceOnBoard(6,3);
+
+        List<Coordinate> movableCoordinates = gameService.getMovableCoordinates(game, coordinate);
+        List<Coordinate> expect = new ArrayList<>();
+        expect.add(new Coordinate(3, 0));
+        expect.add(new Coordinate(4, 1));
+        expect.add(new Coordinate(5, 2));
+        expect.add(new Coordinate(6, 3));
+        expect.add(new Coordinate(7, 3));
+        expect.add(new Coordinate(7, 5));
+
+        assertEquals(expect, movableCoordinates);
+    }
+
+    private void deletePieceOnBoard(int row, int col) {
+        game.getBoard().setPieceOnBoard(row, col, new EmptyPiece(row, col, game.getBoard()));
+    }
 }

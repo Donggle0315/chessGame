@@ -47,7 +47,28 @@
 <script th:inline="javascript">
     function handleClick(row, col) {
         console.log("Clicked on row: " + row + ", col: " + col);
-        // 여기에 클릭한 칸에 대한 처리를 추가할 수 있습니다.
+    var data = {
+            row: row,
+            col: col
+        };
+
+        fetch("/game/movable-position", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("Data sent successfully!");
+            } else {
+                console.error("Failed to send data:", response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error("Error sending data:", error);
+        });
     }
 </script>
 </body>

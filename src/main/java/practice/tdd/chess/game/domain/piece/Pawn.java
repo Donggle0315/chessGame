@@ -49,9 +49,6 @@ public class Pawn extends Piece{
     }
 
     private boolean verifyAttackingEnemy(Coordinate destination) {
-        System.out.println("11" + Math.abs((this.getCoordinate().getRow() - destination.getRow()) * (this.getCoordinate().getCol() - destination.getCol())));
-        System.out.println("22" + board.getColorOnLocation(destination) + super.getEnemyColor());
-
         return (Math.abs((this.getCoordinate().getRow() - destination.getRow()) * (this.getCoordinate().getCol() - destination.getCol())) == 1)
                 && board.getColorOnLocation(destination) == super.getEnemyColor();
     }
